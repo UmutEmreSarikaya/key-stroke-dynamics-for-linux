@@ -89,6 +89,7 @@ def main():
                 eventList.append((username, chr(event.Ascii), "up", int(time.time() * 1000)))
 
     username = input("Enter Your Name: ")
+    print("\nHello " + username + "! Please enter some text and when you are done press ESC to create the output.csv file. To terminate the program you can press CTRL+C.\n")
             
     # Create a hook manager object
     new_hook = pyxhook.HookManager()
