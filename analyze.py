@@ -1,7 +1,7 @@
 import pandas as pd
 import csv
 
-df = pd.read_csv("output.csv")
+df = pd.read_csv("keylogger_results.csv")
 
 result_df = pd.DataFrame(columns=["User", "Key", "TimeDown", "TimeUp", "TimePassed"])
 
