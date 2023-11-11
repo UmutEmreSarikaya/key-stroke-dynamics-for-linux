@@ -96,4 +96,4 @@ for index, row in df.iterrows():
     #     result_df = pd.concat([result_df, pd.DataFrame([new_row])], ignore_index=True)
                 
 print(result_df)
-result_df.to_csv("time_passed_results.csv", index=False)
+result_df.to_csv("analyzed_results.csv", index=False)
