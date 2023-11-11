@@ -8,7 +8,7 @@ import csv
 def main():
     # Specify the name of the file (can be changed )
     log_file = f'{os.getcwd()}/{datetime.now().strftime("%d-%m-%Y|%H:%M")}.log'
-    csv_file = f'{os.getcwd()}/output.csv'
+    csv_file = f'{os.getcwd()}/keylogger_results.csv'
 
     eventList = []
 
