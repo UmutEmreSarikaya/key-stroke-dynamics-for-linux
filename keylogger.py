@@ -19,6 +19,8 @@ def main():
             if event.Key == 'Escape' :
                 with open(csv_file,'a',newline='\n') as f:
                     writer = csv.writer(f)
+                    headers = ["User", "Key", "Event", "TimeInMillis"]
+                    writer.writerow(headers)
                     writer.writerows(eventList)
                 f.close()
             elif event.Key == 'Return' :
