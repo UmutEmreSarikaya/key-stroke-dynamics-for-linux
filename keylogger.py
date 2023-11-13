@@ -11,19 +11,20 @@ def main():
     csv_file = f'{os.getcwd()}/keylogger_results.csv'
 
     eventList = []
-
-    # The logging function with {event parm}
+    global capsLockOn
+    capsLockOn = False
+    # The function to be called when a key is pressed
     def OnKeyPress(event):
-
+        global capsLockOn
         with open(log_file, "a") as f:  # Open a file as f with Append (a) mode
-            if event.Key == 'Escape' :
+            if event.Key == 'Escape':
                 with open(csv_file,'a',newline='\n') as f:
                     writer = csv.writer(f)
                     headers = ["User", "Key", "Event", "TimeInMillis"]
                     writer.writerow(headers)
                     writer.writerows(eventList)
                 f.close()
-            elif event.Key == 'Return' :
+            elif event.Key == 'Return':
                 f.write(f"RETURN down {datetime.now().strftime('%H:%M:%S.%f')}\n")
                 eventList.append((username, "RETURN", "down", int(time.time() * 1000)))
             elif event.Key == "Control_L":
@@ -36,6 +37,7 @@ def main():
                 f.write(f"SHIFT_RIGHT down {datetime.now().strftime('%H:%M:%S.%f')}\n")
                 eventList.append((username, "SHIFT_RIGHT", "down", int(time.time() * 1000)))
             elif event.Key == "Caps_Lock":
+                capsLockOn = not capsLockOn
                 f.write(f"CAPS_LOCK down {datetime.now().strftime('%H:%M:%S.%f')}\n")
                 eventList.append((username, "CAPS_LOCK", "down", int(time.time() * 1000)))
             elif event.Key == "space":
@@ -51,14 +53,19 @@ def main():
                 f.write(f"TAB down {datetime.now().strftime('%H:%M:%S.%f')}\n")
                 eventList.append((username, "TAB", "down", int(time.time() * 1000)))
             else:
-                f.write(f"{chr(event.Ascii)} down {datetime.now().strftime('%H:%M:%S.%f')}\n")  # Write to the file and convert ascii to readable characters
-                eventList.append((username, chr(event.Ascii), "down", int(time.time() * 1000)))
+                if capsLockOn:
+                    f.write(f"{chr(event.Ascii).upper()} down {datetime.now().strftime('%H:%M:%S.%f')}\n") # Write to the file and convert ascii to readable characters
+                    eventList.append((username, chr(event.Ascii).upper(), "down", int(time.time() * 1000)))
+                else:
+                    f.write(f"{chr(event.Ascii)} down {datetime.now().strftime('%H:%M:%S.%f')}\n") # Write to the file and convert ascii to readable characters
+                    eventList.append((username, chr(event.Ascii), "down", int(time.time() * 1000)))
 
+    # The function to be called when a key is released
     def OnKeyRelease(event):
         with open(log_file, "a") as f:  # Open a file as f with Append (a) mode
-            if event.Key == 'Escape' :
+            if event.Key == 'Escape':
                 pass
-            elif event.Key == 'Return' :
+            elif event.Key == 'Return':
                 if len(eventList) != 0:
                     f.write(f"RETURN up {datetime.now().strftime('%H:%M:%S.%f')}\n")
                     eventList.append((username, "RETURN", "up", int(time.time() * 1000)))
@@ -87,8 +94,12 @@ def main():
                 f.write(f"TAB up {datetime.now().strftime('%H:%M:%S.%f')}\n")
                 eventList.append((username, "TAB", "up", int(time.time() * 1000)))
             else:
-                f.write(f"{chr(event.Ascii)} up {datetime.now().strftime('%H:%M:%S.%f')}\n")
-                eventList.append((username, chr(event.Ascii), "up", int(time.time() * 1000)))
+                if capsLockOn:
+                    f.write(f"{chr(event.Ascii).upper()} up {datetime.now().strftime('%H:%M:%S.%f')}\n")
+                    eventList.append((username, chr(event.Ascii).upper(), "up", int(time.time() * 1000)))
+                else:
+                    f.write(f"{chr(event.Ascii)} up {datetime.now().strftime('%H:%M:%S.%f')}\n")
+                    eventList.append((username, chr(event.Ascii), "up", int(time.time() * 1000)))
 
     username = input("Enter Your Name: ")
     print("\nHello " + username + "! Please enter some text and when you are done press ESC to create the output.csv file. To terminate the program you can press CTRL+C.\n")
