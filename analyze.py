@@ -1,9 +1,15 @@
 import pandas as pd
-import csv
 
 df = pd.read_csv("keylogger_results.csv")
+down_events = df[df['Event'] == 'down'].copy()
+down_events['DD'] = down_events['TimeInMillis'].diff().shift(-1)
+print(down_events)
 
-result_df = pd.DataFrame(columns=["User", "Key", "TimeDown", "TimeUp", "TimePassed"])
+up_events = df[df['Event'] == 'up'].copy()
+up_events['UU'] = up_events['TimeInMillis'].diff().shift(-1)
+print(up_events)
+
+result_df = pd.DataFrame(columns=["User", "Key", "TimeDown", "TimeUp", "H"])
 
 last_down = {}
 
@@ -16,13 +22,13 @@ for index, row in df.iterrows():
         last_down[(user, key)] = time
     elif event == "up" and (user, key) in last_down:
         down_time = last_down[(user, key)]
-        time_passed = time - down_time
+        hold_time = time - down_time
         new_row = {
             "User": user,
             "Key": key,
             "TimeDown": down_time,
             "TimeUp": time,
-            "TimePassed": time_passed
+            "H": hold_time
         }
         result_df = pd.concat([result_df, pd.DataFrame([new_row])], ignore_index=True)
         del last_down[(user, key)]
