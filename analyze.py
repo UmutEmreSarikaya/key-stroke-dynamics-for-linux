@@ -19,14 +19,6 @@ result_df["DD"] = down_events["TimeInMillis"].diff().values
 result_df["UU"] = up_events["TimeInMillis"].diff().values
 result_df["UD"] = result_df["UU"].values - result_df["H"].values
 
-def fillNaValues(columnName):
-    average = result_df[columnName].mean()
-    result_df[columnName] = result_df[columnName].fillna(average)
-
-fillNaValues("DD")
-fillNaValues("UU")
-fillNaValues("UD")
-
 pd.set_option('display.max_columns', None)
 #print(result_df)
 result_df.to_csv("analyzed_results.csv", index=False)

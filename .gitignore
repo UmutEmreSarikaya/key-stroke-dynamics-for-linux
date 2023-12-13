@@ -1,5 +1,6 @@
 # Exclude CSV files
 *.csv
+*.csv#
 
 # Exclude log files
 *.log
