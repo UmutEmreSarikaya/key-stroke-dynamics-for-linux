@@ -1,7 +1,8 @@
 import pandas as pd
 import os
 
-df = pd.read_csv("keylogger_results.csv")
+csv_file = input("Enter file name with .csv extension to analyze (example: filename.csv): ")
+df = pd.read_csv(csv_file)
 
 down_events = df[df["Event"] == "down"].copy()
 #print(down_events)

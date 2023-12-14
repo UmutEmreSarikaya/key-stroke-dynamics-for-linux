@@ -6,9 +6,14 @@ import pyxhook
 import csv
 
 def main():
+    username = input("Enter Your Name: ")
+    print("\nHello " + username + "! Please enter some text and when you are done press ESC to create the output csv file. To terminate the program you can press CTRL+C.\n")
+
     # Specify the name of the files
-    log_file = f'{os.getcwd()}/{datetime.now().strftime("%d-%m-%Y|%H:%M")}.log'
-    csv_file = f'{os.getcwd()}/keylogger_results.csv'
+
+    date_time = datetime.now().strftime("%d.%m.%Y-%H:%M")
+    log_file = f'{os.getcwd()}/{username + "-" + date_time}.log'
+    csv_file = f'{os.getcwd()}/{username + "-" + date_time}.csv'
 
     eventList = []
     global capsLockOn
@@ -100,10 +105,7 @@ def main():
                 else:
                     f.write(f"{chr(event.Ascii)} up {datetime.now().strftime('%H:%M:%S.%f')}\n")
                     eventList.append((username, chr(event.Ascii), "up", int(time.time() * 1000)))
-
-    username = input("Enter Your Name: ")
-    print("\nHello " + username + "! Please enter some text and when you are done press ESC to create the output.csv file. To terminate the program you can press CTRL+C.\n")
-            
+        
     # Create a hook manager object
     new_hook = pyxhook.HookManager()
     new_hook.KeyDown = OnKeyPress
