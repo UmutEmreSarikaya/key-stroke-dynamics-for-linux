@@ -1,3 +1,5 @@
+The output file "key_stroke_data.csv" has 6 columns. They are explained below:
+
 **H** -> Hold, time passed between when a key is pressed and released\
 **DD** -> Down-Down, time passed between a key is pressed and another key is pressed after it\
 **UU** -> Up-Up, time passed between a key is released and another key is released after it\
