@@ -13,7 +13,7 @@ def main():
 
     date_time = datetime.now().strftime("%d.%m.%Y-%H:%M")
     log_file = f'{os.getcwd()}/{username + "-" + date_time}.log'
-    csv_file = f'{os.getcwd()}/keylogger_outputs/{username + "-" + date_time}.csv'
+    csv_file = f'{os.getcwd()}/{username + "-" + date_time}.csv'
 
     eventList = []
     global capsLockOn
