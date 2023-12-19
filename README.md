@@ -1,4 +1,4 @@
-The output file "key_stroke_data.csv" has 6 columns. They are explained below:
+The output file "key_stroke_data.csv" has 8 columns. They are explained below:
 
 **H** -> Hold, the average time passed between when a key is pressed and released\
 **DD** -> Down-Down, the average time passed between a key is pressed and the next key is pressed after it\
