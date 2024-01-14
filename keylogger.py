@@ -26,7 +26,6 @@ def main():
                 headers = ["User", "Key", "Event", "TimeInMillis"]
                 writer.writerow(headers)
                 writer.writerows(eventList)
-            f.close()
         elif event.Key == 'Return':
             eventList.append((username, "RETURN", "down", int(time.time() * 1000)))
         elif event.Key == "Control_L":
